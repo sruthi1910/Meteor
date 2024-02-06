@@ -1,0 +1,46 @@
+<template>
+    <div class="container mt-5">
+      <h2>Past Payments</h2>
+      <div v-if="pastPayments.length === 0">No past payments found.</div>
+      <table class="table table-striped" v-else>
+        <thead>
+          <tr>
+            <th>Loan ID</th>
+            <th>Payment Date</th>
+            <th>Amount Paid</th>
+            <th>Method</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="payment in pastPayments" :key="payment._id">
+            <td>{{ payment.loanId }}</td>
+            <td>{{ payment.date }}</td>
+            <td>{{ payment.amount }}</td>
+            <td>{{ payment.method }}</td>
+            <td>{{ payment.status }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </template>
+  
+  <script>
+  import { Payments } from '/imports/collections/payments.js';
+  
+  export default {
+    data() {
+      return {
+        pastPayments: [],
+      };
+    },
+    mounted() {
+      const loanIds = Loans.find({
+        borrowerId: Meteor.user()._id,
+        status: { $in: ['Approved', 'Paid Off'] }, // Filter relevant loans
+      }).fetch().map(loan => loan._id); // Extract loan IDs
+      this.pastPayments = Payments.find({ loanId: { $in: loanIds } }).fetch();
+    },
+  };
+  </script>
+  

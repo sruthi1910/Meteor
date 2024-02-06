@@ -1,0 +1,32 @@
+<template>
+    <div>
+      <h2>Choose Your Role</h2>
+      <ul>
+        <li v-for="role in roles" :key="role._id">
+          <button @click="selectRole(role)">{{ role.name }}</button>
+        </li>
+      </ul>
+    </div>
+  </template>
+  
+  <script>
+  import { Roles } from '/imports/collections/roles.js'; // Assuming separate file
+  
+  export default {
+    data() {
+      return {
+        roles: [],
+      };
+    },
+    mounted() {
+      this.roles = Roles.find().fetch(); // Access Roles collection
+    },
+    methods: {
+      selectRole(role) {
+        // Store selected role using Meteor.user()._id and chosen role
+        // Redirect to appropriate dashboard based on role
+      },
+    },
+  };
+  </script>
+  

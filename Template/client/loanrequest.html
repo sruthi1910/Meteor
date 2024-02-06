@@ -1,0 +1,44 @@
+<template>
+    <div class="container mt-5">
+      <h2>Loan Request</h2>
+      <form @submit.prevent="handleSubmit">
+        <div class="form-group">
+          <label for="amount">Loan Amount:</label>
+          <input type="number" class="form-control" id="amount" v-model="amount" required>
+        </div>
+        <div class="form-group">
+          <label for="term">Loan Term (months):</label>
+          <select class="form-control" id="term" v-model="term" required>
+            <option value="12">12 months</option>
+            <option value="24">24 months</option>
+            <option value="36">36 months</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="purpose">Loan Purpose:</label>
+          <textarea class="form-control" id="purpose" v-model="purpose" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit Request</button>
+      </form>
+    </div>
+  </template>
+  
+  <script>
+  export default {
+    data() {
+      return {
+        amount: 0,
+        term: '',
+        purpose: '',
+      };
+    },
+    methods: {
+      handleSubmit() {
+        // Validate form data
+        // Call a Meteor method to submit the loan request
+        // Handle success/error messages
+      },
+    },
+  };
+  </script>
+  

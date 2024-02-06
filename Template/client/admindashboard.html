@@ -1,0 +1,42 @@
+<template>
+    <div class="container mt-5">
+      <h2>Admin Dashboard</h2>
+      <div class="row">
+        <div class="col-md-6">
+          <h3>Users</h3>
+          <ul>
+            <li v-for="user in users" :key="user._id">
+              {{ user.email }} ({{ user.roles.join(', ') }})
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-6">
+          <h3>Loans</h3>
+          <ul>
+            <li v-for="loan in loans" :key="loan._id">
+              {{ loan.borrowerName }} - ${{ loan.amount }} ({{ loan.status }})
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </template>
+  
+  <script>
+  import { Users } from '/imports/collections/users.js';
+  import { Loans } from '/imports/collections/loans.js';
+  
+  export default {
+    data() {
+      return {
+        users: [],
+        loans: [],
+      };
+    },
+    mounted() {
+      this.users = Users.find().fetch(); // You might need to filter by roles
+      this.loans = Loans.find().fetch(); // Add filtering based on needs
+    },
+  };
+  </script>
+  

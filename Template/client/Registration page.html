@@ -1,0 +1,34 @@
+<template>
+    <div>
+      <h2>Register</h2>
+      <form @submit.prevent="handleSubmit">
+        <label for="email">Email:</label>
+        <input type="email" id="email" v-model="email" required>
+        <label for="password">Password:</label>
+        <input type="password" id="password" v-model="password" required>
+        <label for="confirmPassword">Confirm Password:</label>
+        <input type="password" id="confirmPassword" v-model="confirmPassword" required>
+        <button type="submit">Register</button>
+      </form>
+    </div>
+  </template>
+  
+  <script>
+  export default {
+    data() {
+      return {
+        email: '',
+        password: '',
+        confirmPassword: '',
+      };
+    },
+    methods: {
+      handleSubmit() {
+        // Validate input fields
+        // Call Meteor.createUser method with email and password
+        // Handle errors and success messages
+      },
+    },
+  };
+  </script>
+  

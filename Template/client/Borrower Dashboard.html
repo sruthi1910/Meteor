@@ -1,0 +1,32 @@
+<template>
+    <div>
+      <h2>Borrower Dashboard</h2>
+      <div v-if="loans.length === 0">No loan requests yet.</div>
+      <ul v-else>
+        <li v-for="loan in loans" :key="loan._id">
+          </li>
+      </ul>
+      <button @click="requestLoan">Request Loan</button>
+    </div>
+  </template>
+  
+  <script>
+  import { Loans } from '/imports/collections/loans.js';
+  
+  export default {
+    data() {
+      return {
+        loans: [],
+      };
+    },
+    mounted() {
+      this.loans = Loans.find({ borrowerId: Meteor.userId() }).fetch(); // Filter by borrower
+    },
+    methods: {
+      requestLoan() {
+        // Open modal or navigate to loan request page
+      },
+    },
+  };
+  </script>
+  

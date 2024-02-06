@@ -1,0 +1,44 @@
+<template>
+    <div class="container mt-5">
+      <h2>Past Loans</h2>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Loan Amount</th>
+            <th>Term (Months)</th>
+            <th>Purpose</th>
+            <th>Requested Date</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="loan in pastLoans" :key="loan._id">
+            <td>{{ loan.amount }}</td>
+            <td>{{ loan.term }}</td>
+            <td>{{ loan.purpose }}</td>
+            <td>{{ loan.requestedDate }}</td>
+            <td>{{ loan.status }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </template>
+  
+  <script>
+  import { Loans } from '/imports/collections/loans.js';
+  
+  export default {
+    data() {
+      return {
+        pastLoans: [],
+      };
+    },
+    mounted() {
+      this.pastLoans = Loans.find({
+        borrowerId: Meteor.user()._id,
+        status: { $in: ['Approved', 'Paid Off', 'Rejected'] }, // Filter past loans
+      }).fetch();
+    },
+  };
+  </script>
+  
